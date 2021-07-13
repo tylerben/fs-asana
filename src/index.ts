@@ -6,7 +6,7 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import inquirer from 'inquirer';
 
-type GenericObject = {
+export type GenericObject = {
   [key: string]: any;
 };
 
@@ -47,12 +47,12 @@ const cli = async (args: any) => {
   yargs(hideBin(args)).command(
     '$0 <path>',
     'creates a new asana project and populates it with a task for each directory present in the provided directory',
-    (yargs) => {
+    yargs => {
       return yargs.positional('path', {
         describe: 'file path to base directory',
       });
     },
-    async (argv) => {
+    async argv => {
       try {
         const answers: GenericObject = await inquirer.prompt(questions);
         const asanaClient = asana.Client.create({
