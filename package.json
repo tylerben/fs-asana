@@ -1,5 +1,10 @@
 {
   "version": "0.1.6",
+  "name": "fs-asana",
+  "description": "Simple and limited CLI for generating Asana tasks based on your local file system.",
+  "repository": "https://github.com/tylerben/fs-asana",
+  "homepage": "https://github.com/tylerben/fs-asana",
+  "author": "Ben Tyler",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -32,8 +37,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "fs-asana",
-  "author": "Ben Tyler",
   "module": "dist/index.js",
   "size-limit": [
     {
