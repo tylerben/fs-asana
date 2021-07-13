@@ -50,10 +50,10 @@ const questions = [
 const cli = async (args: string[]) => {
   yargs(hideBin(args)).command(
     '$0 <path>',
-    'creates a new asana project and populates it with a task for each directory present in the provided directory',
+    'Populates a specified Asana project with a task for each directory present in the provided base directory path.',
     (yargs) => {
       return yargs.positional('path', {
-        describe: 'file path to base directory',
+        describe: 'File path to base directory',
       });
     },
     async (argv) => {
