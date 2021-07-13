@@ -6,8 +6,12 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import inquirer from 'inquirer';
 
-export type GenericObject = {
-  [key: string]: any;
+export type Answers = {
+  asanaAccessToken: string;
+  projectId: string;
+  taskAssignee: string;
+  taskPrefix?: string;
+  taskSuffix?: string;
 };
 
 const welcomeMsg =
@@ -42,19 +46,19 @@ const questions = [
   },
 ];
 
-const cli = async (args: any) => {
+const cli = async (args: string[]) => {
   yargs(hideBin(args)).command(
     '$0 <path>',
     'creates a new asana project and populates it with a task for each directory present in the provided directory',
-    yargs => {
+    (yargs) => {
       return yargs.positional('path', {
         describe: 'file path to base directory',
       });
     },
-    async argv => {
+    async (argv) => {
       console.log(welcomeMsg);
       try {
-        const answers: GenericObject = await inquirer.prompt(questions);
+        const answers: Answers = await inquirer.prompt(questions);
         const asanaClient = asana.Client.create({
           defaultHeaders: { 'asana-enable': 'new_user_task_lists' },
         }).useAccessToken(answers.asanaAccessToken);
@@ -75,7 +79,6 @@ const cli = async (args: any) => {
             console.error(err);
           }
         }
-        // console.log(answers);
       } catch (err) {
         console.error(err);
       }
