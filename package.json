@@ -1,5 +1,5 @@
 {
-  "version": "0.1.6",
+  "version": "0.1.7",
   "name": "fs-asana",
   "description": "Simple and limited CLI for generating Asana tasks based on your local file system.",
   "repository": "https://github.com/tylerben/fs-asana",
