@@ -5,6 +5,7 @@ import fs from 'fs';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import inquirer from 'inquirer';
+import ora from 'ora';
 
 export type Answers = {
   asanaAccessToken: string;
@@ -19,7 +20,7 @@ const welcomeMsg =
 
 const questions = [
   {
-    type: 'input',
+    type: 'password',
     name: 'asanaAccessToken',
     message: 'Please enter your Asana Personal Access Token.',
   },
@@ -66,15 +67,18 @@ const cli = async (args: string[]) => {
           .readdirSync(argv.path as string)
           .filter((d: any) => fs.statSync(`${argv.path}/${d}`).isDirectory())
           .reverse();
+        const spinner = ora('').start();
+        spinner.color = 'blue';
         for (let directory of directories) {
           const name = `${answers.taskPrefix}${directory}${answers.taskSuffix}`;
           try {
+            spinner.text = `creating task: "${name}"`;
             await asanaClient.tasks.createTask({
               assignee: answers.taskAssignee,
               name,
               projects: [answers.projectId],
             });
-            console.log(`Created Task - "${name}"`);
+            // console.log(`Created Task - "${name}"`);
           } catch (err) {
             console.error(err);
           }
